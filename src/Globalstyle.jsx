@@ -6,22 +6,10 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
     border: 0;
-    font-family: -apple-system, "system-ui", "Segoe UI Adjusted", "Segoe UI", "Liberations Sans", sans-serif;
-    font-weight: 400; 
-    font-size: 13px;  
-    
-  }
-
-  .container {
-    height: auto;
-    width: auto;
-    margin: 0;
-    padding: 0;
+    font-family: Pertendard;
+    background: transparent;
   }
   
-  body {
-
-  }
   a {
     text-decoration: none;
   }
@@ -29,33 +17,17 @@ const GlobalStyles = createGlobalStyle`
   button {
     cursor: pointer;
   }
+  body{
+    background-color: hsla(222, 16%, 16%, 1);
+  }
 
   :root {
     --white: hsl(0,0%,100%);
-    --black-025: hsl(210,8%,98%);
-    --black-050: hsl(210,8%,95%);
-    --black-070: hsl(210,10%,90%);
-    --black-100: hsl(216,10%,90%);
-    --black-200: hsl(210,8%,75%);
-    --black-350: hsl(210,8%,60%);
-    --black-500: hsl(210,8%,45%);
-    --black-600: hsl(210,8%,35%);
-    --black-700: hsl(210,8%,25%);
-    --black-800: hsl(210,8%,15%);
-    --black-900: hsl(210,8%,5%);
-    --green-700: hsl(140,41%,31%);
-    --eatsgreen: hsl(144, 40%, 47%);
-    --footergreen: hsl(144, 17%, 41%);
-    --red-500: hsl(0, 81%, 54%);
-    --red-600: hsl(0, 100%, 26%);
-
-
-    --x-small-font : 12px;
-    --small-font : 13px;
-    --medium-font: 16px;
-    --large-font: 20px;
-    --x-large-font: 22px;
-    --xx-large-font: 28px;
+    --navi-btn-color: hsla(222, 6%, 46%, 1);
+    --span-art-color: hsla(0, 0%, 74%, 1);
+    --disable-tap-color: hsla(0, 0%, 45%, 1);
+    --view-more-color: hsla(0, 0%, 88%, 1);
+    --bg-blue-color:hsla(222, 16%, 16%, 1);
     
   }
 `;
