@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import Banner from "./Page/Banner";
+// import React, { useEffect } from "react";
+// import Banner from "./Page/Banner";
 import GlobalStyles from "./Globalstyle";
 import styled from "styled-components";
-import { NormalBtn, FixBtn, LoginBtn, JoinBtn } from "./Style/StyleBtn";
+import { NormalBtn, FixBtn, JoinBtn } from "./Style/StyleBtn";
 import { LoginInput } from "./Style/StyleInput";
 
 const Div = styled.div`
