@@ -1,12 +1,24 @@
 import { bannerArr } from "../data/Banner_data";
+import { FixBtn } from "../Style/StyleBtn";
+import Login from "./Login";
+import Hamburger from "../img/Hamburger.svg";
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import { useInterval } from "../hook/useInterval";
+
+const Container = styled.div`
+  width: auto;
+  height: auto;
+  overflow: hidden;
+`;
 
 const BannerDiv = styled.div`
   width: 400vw;
   height: 100vh;
   overflow: hidden;
   display: flex;
+  opacity: 0.4;
+  background: black;
 `;
 
 const BannerImg = styled.img`
@@ -14,9 +26,75 @@ const BannerImg = styled.img`
   height: auto;
 `;
 
+const BackgroundBox = styled.div`
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeaderDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2% 5%;
+
+  > h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+  }
+`;
+
+const HamburgerBtn = styled.button`
+  width: auto;
+  height: auto;
+  margin-left: 115px;
+`;
+
+const LogoDiv = styled.div`
+  width: auto;
+  height: 10rem;
+  transform: rotate(-10deg);
+
+  > span {
+    color: #fff;
+    text-align: center;
+    font-family: Victorian;
+    font-size: 7.4375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+
+const BannerPageDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+const PageDiv = styled.button<{ color: string }>`
+  width: 3rem;
+  height: 0.6rem;
+  margin-right: 1rem;
+  background: ${(props) => (props.color === "white" ? "white" : " #727272")};
+`;
+
 export default function Banner() {
   const [count, setCount] = useState<number>(0);
   const slideRef = useRef<HTMLDivElement>(null);
+  const [isModal, setIsModal] = useState<boolean>(false);
   const leng: number = bannerArr.length - 1;
 
   function nextScrollFunc() {
@@ -28,12 +106,7 @@ export default function Banner() {
       setCount(count + 1);
     }
   }
-  useEffect(() => {
-    setTimeout(() => {
-      nextScrollFunc();
-      console.log(count);
-    }, 3500);
-  });
+  useInterval(() => nextScrollFunc(), 3000);
 
   useEffect(() => {
     if (slideRef.current) {
@@ -44,20 +117,37 @@ export default function Banner() {
     }
   }, [count, leng]);
 
-  // else if (slideRef.current ) {
-  //   slideRef.current.style.transform = `translateX(-${0}%)`;
-  //   slideRef.current.style.transition = "all 0s ease-in-out";
-
-  //   setCount(0);
-  // }
-
   return (
-    <>
+    <Container>
+      <BackgroundBox>
+        <HeaderDiv>
+          <FixBtn color={"white"} onClick={() => setIsModal(!isModal)}>
+            RESERVATION
+          </FixBtn>
+          <h1>BUTTER</h1>
+          <HamburgerBtn>
+            <img src={Hamburger} alt={"HambergerBtn"} />
+          </HamburgerBtn>
+        </HeaderDiv>
+        <LogoDiv>
+          <span>For the high-end</span>
+        </LogoDiv>
+        <BannerPageDiv>
+          {bannerArr.map((_, idx) => {
+            return count === idx ? (
+              <PageDiv color={"white"} onClick={() => setCount(idx)}></PageDiv>
+            ) : (
+              <PageDiv color={"none"} onClick={() => setCount(idx)}></PageDiv>
+            );
+          })}
+        </BannerPageDiv>
+        {isModal ? <Login isModal={isModal} setIsModal={setIsModal} /> : null}
+      </BackgroundBox>
       <BannerDiv ref={slideRef}>
         {bannerArr.map((item, idx) => {
           return <BannerImg src={item} key={idx} alt={`${idx}`} />;
         })}
       </BannerDiv>
-    </>
+    </Container>
   );
 }

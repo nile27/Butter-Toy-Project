@@ -1,5 +1,5 @@
 // import React, { useEffect } from "react";
-// import Banner from "./Page/Banner";
+import Banner from "./Page/Banner";
 import GlobalStyles from "./Globalstyle";
 import styled from "styled-components";
 import { NormalBtn, FixBtn, JoinBtn } from "./Style/StyleBtn";
@@ -24,12 +24,7 @@ function App() {
     <>
       <GlobalStyles />
       <div className="container">
-        <NormalBtn>HIGH-END CAR STORE</NormalBtn>
-        <FixBtn color={"asd"}>HIGH-END CAR STORE</FixBtn>
-        <JoinBtn>Sign in</JoinBtn>
-        <Div>
-          <LoginInput />
-        </Div>
+        <Banner />
       </div>
     </>
   );

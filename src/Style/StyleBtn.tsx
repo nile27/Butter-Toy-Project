@@ -38,9 +38,10 @@ export const FixBtn = styled.button<{ color: string }>`
   height: auto;
   font-size: 24px;
   color: ${(props) =>
-    props.color !== "white" ? "var(--navi-btn-color)" : "white"};
+    props.color !== "white" ? "var(--navi-btn-color)" : "#E1E1E1"};
   border-bottom: solid 1px
-    ${(props) => (props.color !== "white" ? "var(--navi-btn-color)" : "white")};
+    ${(props) =>
+      props.color !== "white" ? "var(--navi-btn-color)" : "#E1E1E1"};
 
   padding: 0;
 
@@ -64,6 +65,10 @@ export const LoginBtn = styled.button`
 
   &:hover {
     color: white;
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size: 18px;
   }
 `;
 
