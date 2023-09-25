@@ -74,10 +74,10 @@ export const LoginBtn = styled.button`
 
 export const JoinBtn = styled(LoginBtn)`
   background-color: hsla(234, 9%, 50%, 1);
-  padding: 8px;
+  padding: 10px 15px;
   border-radius: 10px;
   color: white;
-
+  font-size: 18px;
   &:hover {
     background-color: #222630;
     color: hsla(234, 9%, 50%, 1);

@@ -29,6 +29,9 @@ const GlobalStyles = createGlobalStyle`
     background-color: hsla(222, 16%, 16%, 1);
   }
 
+  li{
+    list-style: none;
+  }
 
   :root {
     --white: hsl(0,0%,100%);
