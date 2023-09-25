@@ -5,9 +5,10 @@ export const NormalBtn = styled.button`
   font-size: 28px;
   text-align: center;
   color: var(--navi-btn-color);
-  padding: 5px;
+  padding: 0px;
   width: auto;
   height: auto;
+  white-space: nowrap;
 
   &:after {
     display: block;
@@ -36,14 +37,34 @@ export const FixBtn = styled.button<{ color: string }>`
   text-align: center;
   width: auto;
   height: auto;
-  font-size: 24px;
+  > a {
+    font-size: 24px;
+    color: ${(props) =>
+      props.color !== "white" ? "var(--navi-btn-color)" : "#E1E1E1"};
+    border-bottom: solid 1px
+      ${(props) =>
+        props.color !== "white" ? "var(--navi-btn-color)" : "#E1E1E1"};
+
+    padding: 0;
+
+    &:hover {
+      color: white;
+      border-bottom: solid 1px white;
+    }
+
+    &:active {
+      color: white;
+      border-bottom: solid 1px white;
+    }
+  }
+  font-size: 28px;
   color: ${(props) =>
     props.color !== "white" ? "var(--navi-btn-color)" : "#E1E1E1"};
   border-bottom: solid 1px
     ${(props) =>
       props.color !== "white" ? "var(--navi-btn-color)" : "#E1E1E1"};
 
-  padding: 0;
+  padding: 0px;
 
   &:hover {
     color: white;

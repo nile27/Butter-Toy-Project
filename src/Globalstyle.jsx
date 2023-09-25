@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
     border: 0;
     font-family: Pretendard;
     background: transparent;
+    color: black;
   }
   
   a {
@@ -28,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
   body{
     background-color: hsla(222, 16%, 16%, 1);
   }
+
 
   li{
     list-style: none;
@@ -42,8 +44,6 @@ const GlobalStyles = createGlobalStyle`
     --bg-blue-color:hsla(222, 16%, 16%, 1);
     
   }
-
- 
 `;
 
 export default GlobalStyles;

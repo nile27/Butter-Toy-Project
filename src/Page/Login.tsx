@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { LoginInput } from "../Style/StyleInput";
 import { LoginBtn, JoinBtn } from "../Style/StyleBtn";
 import xbox from "../img/xbox.svg";
-import SignUp from "./SignUp";
+
 interface ismodalOBJ {
   isModal: boolean;
   setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,19 +11,26 @@ interface ismodalOBJ {
 
 const LoginBg = styled.div`
   position: fixed;
-  z-index: 100;
+  width: 100%;
+  height: 100%;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 100;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const LoginContainer = styled.div`
   width: 40%;
   height: auto;
+  position: absolute;
+
   background: #2d2d2d;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 1.5rem 3rem 2rem 3rem;
@@ -54,7 +61,7 @@ const XBtn = styled.button`
   width: auto;
   height: auto;
   position: absolute;
-  top: 5%;
+  top: 15px;
   right: 2%;
 `;
 
@@ -88,47 +95,67 @@ const SignLi = styled.li`
 `;
 
 export default function Login({ isModal, setIsModal }: ismodalOBJ) {
-  const signArr = ["ID", "Password", "Re-Enter", "Name", "E-mail", "Mobile"];
+  const signArr: string[] = [
+    "ID",
+    "Password",
+    "Re-Enter",
+    "Name",
+    "E-mail",
+    "Mobile",
+  ];
   const [signBtn, setSignBtn] = useState<boolean>(false);
   const loginFunc = () => {
     setIsModal(!isModal);
   };
 
+  useEffect(() => {
+    if (isModal) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   return (
-    <LoginBg>
-      <LoginContainer>
-        <h1>{signBtn ? "SignUp" : "Login"}</h1>
-        <XBtn onClick={() => setIsModal(!isModal)}>
-          <img src={xbox} alt={"X Button"} />
-        </XBtn>
-        {!signBtn ? (
-          <>
-            <LoginInput />
-            <LoginInput />
-            <BtnDiv>
-              <LoginBtn onClick={() => loginFunc()}>Sign in</LoginBtn>
-              <MiddleLine>|</MiddleLine>
-              <LoginBtn onClick={() => setSignBtn(!signBtn)}>Sign up</LoginBtn>
-            </BtnDiv>
-          </>
-        ) : (
-          <>
-            <SignUpUl>
-              {signArr.map((item, idx) => {
-                return (
-                  <SignLi key={idx}>
-                    <span>{item}</span>
-                    <LoginInput />
-                  </SignLi>
-                );
-              })}
-            </SignUpUl>
-            <BtnDiv>
-              <JoinBtn>Join Us</JoinBtn>
-            </BtnDiv>
-          </>
-        )}
-      </LoginContainer>
-    </LoginBg>
+    <>
+      <LoginBg>
+        <LoginContainer>
+          <h1>{signBtn ? "SignUp" : "Login"}</h1>
+          <XBtn onClick={() => setIsModal(!isModal)}>
+            <img src={xbox} alt={"X Button"} />
+          </XBtn>
+          {!signBtn ? (
+            <>
+              <LoginInput />
+              <LoginInput />
+              <BtnDiv>
+                <LoginBtn onClick={() => loginFunc()}>Sign in</LoginBtn>
+                <MiddleLine>|</MiddleLine>
+                <LoginBtn onClick={() => setSignBtn(!signBtn)}>
+                  Sign up
+                </LoginBtn>
+              </BtnDiv>
+            </>
+          ) : (
+            <>
+              <SignUpUl>
+                {signArr.map((item, idx) => {
+                  return (
+                    <SignLi key={idx}>
+                      <span>{item}</span>
+                      <LoginInput />
+                    </SignLi>
+                  );
+                })}
+              </SignUpUl>
+              <BtnDiv>
+                <JoinBtn>Join Us</JoinBtn>
+              </BtnDiv>
+            </>
+          )}
+        </LoginContainer>
+      </LoginBg>
+    </>
   );
 }

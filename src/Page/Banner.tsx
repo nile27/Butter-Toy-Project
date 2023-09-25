@@ -29,7 +29,7 @@ const BannerImg = styled.img`
 const BackgroundBox = styled.div`
   width: 100vw;
   height: 100vh;
-  z-index: 50;
+  z-index: 1;
   overflow: hidden;
   position: absolute;
   display: flex;
@@ -141,8 +141,8 @@ export default function Banner() {
             );
           })}
         </BannerPageDiv>
-        {isModal ? <Login isModal={isModal} setIsModal={setIsModal} /> : null}
       </BackgroundBox>
+      {isModal ? <Login isModal={isModal} setIsModal={setIsModal} /> : null}
       <BannerDiv ref={slideRef}>
         {bannerArr.map((item, idx) => {
           return <BannerImg src={item} key={idx} alt={`${idx}`} />;
