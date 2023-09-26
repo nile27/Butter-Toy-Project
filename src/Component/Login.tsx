@@ -5,7 +5,9 @@ import { useRecoilState } from "recoil";
 import { LoginInput } from "../Style/StyleInput";
 import { LoginBtn } from "../Style/StyleBtn";
 import { isLoginModal } from "../atoms/IsModal";
+import { isLoginAtom } from "../atoms/IsLogin";
 import { api } from "../Util/Api";
+import axios from "axios";
 
 interface SignInObj {
   signBtn: boolean;
@@ -31,8 +33,18 @@ const MiddleLine = styled.div`
   margin: 0 2rem;
 `;
 
+const LoginForm = styled.form`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+`;
+
 export function Login({ signBtn, setSignBtn }: SignInObj) {
   const [isModal, setIsModal] = useRecoilState<boolean>(isLoginModal);
+  const [isLogin, setIsLogin] = useRecoilState<boolean>(isLoginAtom);
   const [loginForm, setLoginForm] = useState<LoginObj>({
     id: "",
     password: "",
@@ -43,9 +55,15 @@ export function Login({ signBtn, setSignBtn }: SignInObj) {
       setLoginForm({ ...loginForm, [key]: e.target.value });
     };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      loginFunc();
+    }
+  };
+
   const loginFunc = () => {
     if (loginForm.id.length < 6 || loginForm.id.length > 15) {
-      alert("ID는 6글자 이상, 15글자 이하입니다.");
+      alert("ID는 6 ~ 15글자 입니다.");
       return;
     }
 
@@ -53,8 +71,7 @@ export function Login({ signBtn, setSignBtn }: SignInObj) {
       alert("모든 항목을 입력해주세요.");
       return;
     }
-
-    return api
+    return axios
       .post(
         "/api/v1/assignment/sign-in",
         {
@@ -64,27 +81,36 @@ export function Login({ signBtn, setSignBtn }: SignInObj) {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data);
         setCookie("accessToken", res.data.result.accessToken);
         setCookie("refreshToken", res.data.result.refreshToken);
         setCookie("grantType", res.data.result.grantType);
         alert(res.data.message);
-
+        setIsLogin(!isLogin);
         setIsModal(!isModal);
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 404) {
           alert(err.response.data.message);
         }
-        if (err.response.status === 500) {
-          alert("비밀번호를 확인해주세요.");
+        if (err.response.status === 401) {
+          alert(err.response.data.message);
         }
       });
   };
+
   return (
     <>
-      <LoginInput onChange={handleInputValue("id")} />
-      <LoginInput type="password" onChange={handleInputValue("password")} />
+      <LoginForm>
+        <LoginInput onChange={handleInputValue("id")} />
+        <LoginInput
+          type="password"
+          autoComplete="off"
+          onChange={handleInputValue("password")}
+          onKeyDown={(e) => handleKeyPress(e)}
+        />
+      </LoginForm>
+
       <BtnDiv>
         <LoginBtn onClick={() => setSignBtn(!signBtn)}>Sign in</LoginBtn>
         <MiddleLine>|</MiddleLine>

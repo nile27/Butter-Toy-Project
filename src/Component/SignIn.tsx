@@ -134,25 +134,30 @@ export function SignIn() {
   return (
     <>
       <SignUpUl>
-        {signArr.map((item, idx) => {
-          return item.DataName !== null ? (
-            <SignLi key={idx}>
-              <span>{item.frontName}</span>
-              <LoginInput
-                type={item.type}
-                onChange={handleInputValue(item.DataName)}
-              />
-            </SignLi>
-          ) : (
-            <SignLi key={idx}>
-              <span>{item.frontName}</span>
-              <LoginInput
-                type={item.type}
-                onChange={(e) => setReEnter(e.target.value)}
-              />
-            </SignLi>
-          );
-        })}
+        <form>
+          {signArr.map((item, idx) => {
+            return item.DataName !== null ? (
+              <SignLi key={idx}>
+                <span>{item.frontName}</span>
+
+                <LoginInput
+                  type={item.type}
+                  onChange={handleInputValue(item.DataName)}
+                  autoComplete="off"
+                />
+              </SignLi>
+            ) : (
+              <SignLi key={idx}>
+                <span>{item.frontName}</span>
+                <LoginInput
+                  type={item.type}
+                  onChange={(e) => setReEnter(e.target.value)}
+                  autoComplete="off"
+                />
+              </SignLi>
+            );
+          })}
+        </form>
       </SignUpUl>
       <BtnDiv>
         <JoinBtn onClick={() => signInFunc()}>Join Us</JoinBtn>
