@@ -7,6 +7,9 @@ import { useInterval } from "../hook/useInterval";
 import styled from "styled-components";
 import { isLoginModal } from "../atoms/IsModal";
 import { useRecoilState } from "recoil";
+import { api } from "../Util/Api";
+import { getCookie, removeCookie } from "../Util/cookis";
+import { isLoginAtom } from "../atoms/IsLogin";
 
 const Container = styled.div`
   width: auto;
@@ -97,6 +100,7 @@ export default function Banner() {
   const [count, setCount] = useState<number>(0);
   const slideRef = useRef<HTMLDivElement>(null);
   const [isModal, setIsModal] = useRecoilState<boolean>(isLoginModal);
+  const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
   const leng: number = bannerArr.length - 1;
 
   function nextScrollFunc() {
@@ -108,6 +112,28 @@ export default function Banner() {
       setCount(count + 1);
     }
   }
+
+  function Logout() {
+    const access = getCookie("accessToken");
+    const refresh = getCookie("refreshToken");
+
+    return api
+      .post("/api/v1/assignment/sign-out", {
+        accessToken: access,
+        refreshToken: refresh,
+      })
+      .then(() => {
+        setIsLogin(!isLogin);
+        removeCookie("aceessToken");
+        removeCookie("refreshToken");
+        removeCookie("grantType");
+        alert("로그아웃이 되었습니다.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useInterval(() => nextScrollFunc(), 3000);
 
   useEffect(() => {
@@ -127,7 +153,7 @@ export default function Banner() {
             RESERVATION
           </FixBtn>
           <h1>BUTTER</h1>
-          <HamburgerBtn>
+          <HamburgerBtn onClick={() => Logout()}>
             <img src={Hamburger} alt={"HambergerBtn"} />
           </HamburgerBtn>
         </HeaderDiv>

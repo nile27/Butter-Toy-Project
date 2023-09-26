@@ -4,12 +4,8 @@ import { useEffect, useState } from "react";
 import { api } from "../Util/Api";
 
 const UserImg = styled.div`
-  position: absolute;
-  top: 1%;
-  right: 1%;
-  width: 30%;
-  height: auto;
-  z-index: 150;
+  width: 100%;
+  height: 100%;
 `;
 
 const Img = styled.img`

@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { setCookie, getCookie } from "../Util/cookis";
+import { setCookie } from "../Util/cookis";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { LoginInput } from "../Style/StyleInput";
 import { LoginBtn } from "../Style/StyleBtn";
 import { isLoginModal } from "../atoms/IsModal";
 import { isLoginAtom } from "../atoms/IsLogin";
-import { api } from "../Util/Api";
 import axios from "axios";
 
 interface SignInObj {
