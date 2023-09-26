@@ -1,10 +1,12 @@
 import { bannerArr } from "../data/Banner_data";
 import { FixBtn } from "../Style/StyleBtn";
-import Login from "./Login";
+import LoginPage from "./LoginPage";
 import Hamburger from "../img/Hamburger.svg";
 import { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
 import { useInterval } from "../hook/useInterval";
+import styled from "styled-components";
+import { isLoginModal } from "../atoms/IsModal";
+import { useRecoilState } from "recoil";
 
 const Container = styled.div`
   width: auto;
@@ -94,7 +96,7 @@ const PageDiv = styled.button<{ color: string }>`
 export default function Banner() {
   const [count, setCount] = useState<number>(0);
   const slideRef = useRef<HTMLDivElement>(null);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isModal, setIsModal] = useRecoilState<boolean>(isLoginModal);
   const leng: number = bannerArr.length - 1;
 
   function nextScrollFunc() {
@@ -135,14 +137,22 @@ export default function Banner() {
         <BannerPageDiv>
           {bannerArr.map((_, idx) => {
             return count === idx ? (
-              <PageDiv color={"white"} onClick={() => setCount(idx)}></PageDiv>
+              <PageDiv
+                color={"white"}
+                key={idx}
+                onClick={() => setCount(idx)}
+              ></PageDiv>
             ) : (
-              <PageDiv color={"none"} onClick={() => setCount(idx)}></PageDiv>
+              <PageDiv
+                color={"none"}
+                key={idx}
+                onClick={() => setCount(idx)}
+              ></PageDiv>
             );
           })}
         </BannerPageDiv>
       </BackgroundBox>
-      {isModal ? <Login isModal={isModal} setIsModal={setIsModal} /> : null}
+      {isModal ? <LoginPage /> : null}
       <BannerDiv ref={slideRef}>
         {bannerArr.map((item, idx) => {
           return <BannerImg src={item} key={idx} alt={`${idx}`} />;

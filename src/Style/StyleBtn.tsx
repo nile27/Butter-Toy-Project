@@ -30,6 +30,10 @@ export const NormalBtn = styled.button`
   &:active {
     color: white;
   }
+
+  @media screen and (max-width: 900px) {
+    font-size: 18px;
+  }
 `;
 
 export const FixBtn = styled.button<{ color: string }>`
@@ -37,6 +41,7 @@ export const FixBtn = styled.button<{ color: string }>`
   text-align: center;
   width: auto;
   height: auto;
+  white-space: nowrap;
   > a {
     font-size: 24px;
     color: ${(props) =>
@@ -74,6 +79,9 @@ export const FixBtn = styled.button<{ color: string }>`
   &:active {
     color: white;
     border-bottom: solid 1px white;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 18px;
   }
 `;
 
