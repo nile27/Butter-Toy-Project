@@ -117,6 +117,7 @@ const ViewDiv = styled.div`
   position: absolute;
   bottom: 5%;
   left: 5%;
+  z-index: 200;
 
   @media screen and (max-width: 800px) {
     position: static;

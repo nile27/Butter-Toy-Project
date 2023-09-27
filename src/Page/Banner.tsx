@@ -124,13 +124,16 @@ export default function Banner() {
       })
       .then(() => {
         setIsLogin(!isLogin);
-        removeCookie("aceessToken");
+        removeCookie("accessToken");
         removeCookie("refreshToken");
         removeCookie("grantType");
+        sessionStorage.clear();
         alert("로그아웃이 되었습니다.");
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 401) {
+          alert(err.response.data.message + " 다시 로그인 해주세요.");
+        }
       });
   }
 

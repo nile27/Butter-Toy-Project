@@ -6,6 +6,7 @@ import { LoginInput } from "../Style/StyleInput";
 import { LoginBtn } from "../Style/StyleBtn";
 import { isLoginModal } from "../atoms/IsModal";
 import { isLoginAtom } from "../atoms/IsLogin";
+import { expiresTime } from "../atoms/ExpiresTime";
 import axios from "axios";
 
 interface SignInObj {
@@ -44,6 +45,7 @@ const LoginForm = styled.form`
 export function Login({ signBtn, setSignBtn }: SignInObj) {
   const [isModal, setIsModal] = useRecoilState<boolean>(isLoginModal);
   const [isLogin, setIsLogin] = useRecoilState<boolean>(isLoginAtom);
+  const [_, setTime] = useRecoilState<number>(expiresTime);
   const [loginForm, setLoginForm] = useState<LoginObj>({
     id: "",
     password: "",
@@ -61,6 +63,7 @@ export function Login({ signBtn, setSignBtn }: SignInObj) {
   };
 
   const loginFunc = () => {
+    const expiresTime = new Date();
     if (loginForm.id.length < 6 || loginForm.id.length > 15) {
       alert("ID는 6 ~ 15글자 입니다.");
       return;
@@ -80,15 +83,27 @@ export function Login({ signBtn, setSignBtn }: SignInObj) {
         { withCredentials: true }
       )
       .then((res) => {
-        setCookie("accessToken", res.data.result.accessToken);
-        setCookie("refreshToken", res.data.result.refreshToken);
-        setCookie("grantType", res.data.result.grantType);
+        setCookie(
+          "accessToken",
+          res.data.result.accessToken,
+          res.data.result.accessTokenExpiresIn
+        );
+        setCookie(
+          "refreshToken",
+          res.data.result.refreshToken,
+          res.data.result.accessTokenExpiresIn
+        );
+        setCookie(
+          "grantType",
+          res.data.result.grantType,
+          res.data.result.accessTokenExpiresIn
+        );
         alert(res.data.message);
         setIsLogin(!isLogin);
         setIsModal(!isModal);
+        setTime(res.data.result.accessTokenExpiresIn - expiresTime.getTime());
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 404) {
           alert(err.response.data.message);
         }

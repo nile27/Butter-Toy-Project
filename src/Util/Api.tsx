@@ -23,20 +23,29 @@ api.interceptors.response.use(
       const refreshtoken = getCookie("refreshToken");
       const acesstoken = getCookie("accessToken");
       return axios
-        .post(`/api/v1/assignment/reissue`, {
-          headers: {
-            Authorization: `${"Bearer " + acesstoken}`,
-            "Content-Type": "application/json",
-            withCredentials: true,
+        .post(
+          `/api/v1/assignment/reissue`,
+          {
+            accessToken: acesstoken,
+            refreshToken: refreshtoken,
           },
-          accessToken: `${"Bearer " + acesstoken}`,
-          refreshToken: `${"Bearer " + refreshtoken}`,
-        })
+          {
+            headers: {
+              Authorization: `${"Bearer " + acesstoken}`,
+              "Content-Type": "application/json",
+              withCredentials: true,
+            },
+          }
+        )
         .then(async (res) => {
           if (res.status === 200 && res.data.accessToken) {
-            setCookie("accessToken", res.data.accessToken);
+            setCookie(
+              "accessToken",
+              res.data.accessToken,
+              res.data.result.accessTokenExpiresIn
+            );
             const accesstoken = getCookie("Authorization");
-            console.log("완료");
+
             error.config.headers["Authorization"] = `${
               "Bearer " + accesstoken
             }`;
