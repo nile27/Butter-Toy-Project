@@ -13,4 +13,9 @@
 9. Login 팝업창 닫고 Signup 팝업창 출력
 10. 클릭 시 Login 팝업창 메인 가운데 출력
 
-## 1
+## 요구 사항 1
+<img src="https://user-images.githubusercontent.com/114140840/270880833-726aeb8f-e18c-4c96-a8d3-db9a2f5a21e9.gif"  alt="signup page" width = 100% >
+
+- 로그인 후 토큰을 확인하여 회원에 맞는 이미지를 새로운 페이지에 출력
+
+##
