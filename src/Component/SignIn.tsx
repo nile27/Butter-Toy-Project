@@ -81,14 +81,32 @@ export function SignIn() {
     },
   ];
 
+  const idRegEx = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,15}$/;
+  const emailRegEx = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+  const phoneRegEx = /^01([0|1|6|7|8|9])-(\d{3}|\d{4})-\d{4}$/;
+
   function signInFunc() {
-    if (signData.userId.length < 6 || signData.userId.length > 15) {
-      alert("ID는 6글자 이상, 15글자 이하입니다.");
+    const phoneNum =
+      signData.mobile.slice(0, 3) +
+      "-" +
+      signData.mobile.slice(3, 7) +
+      "-" +
+      signData.mobile.slice(7, signData.mobile.length);
+    console.log(phoneNum);
+    if (!idRegEx.test(signData.userId)) {
+      alert("ID는 영문 숫자 포함 6이상 15이하입니다.");
       return;
     }
-
     if (reEnter !== signData.password) {
       alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    if (!emailRegEx.test(signData.email)) {
+      alert("이메일 양식에 맞게 작성해주세요.");
+      return;
+    }
+    if (!phoneRegEx.test(phoneNum)) {
+      alert("올바른 핸드폰 번호를 입력해주세요.");
       return;
     }
 
