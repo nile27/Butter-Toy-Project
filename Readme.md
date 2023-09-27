@@ -11,7 +11,7 @@
 
 
 ## 요구 사항 1
-<img src="https://user-images.githubusercontent.com/114140840/270880833-726aeb8f-e18c-4c96-a8d3-db9a2f5a21e9.gif"  alt="signup page" width = 100% >
+<img src="https://user-images.githubusercontent.com/114140840/270887002-8c39b23a-a91e-4782-985a-49a5cdbaf680.gif" width = 100% >
 
 - 로그인 후 토큰을 확인하여 회원에 맞는 이미지를 새로운 페이지에 출력
 
