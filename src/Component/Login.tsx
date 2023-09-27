@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { setCookie } from "../Util/cookis";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { LoginInput } from "../Style/StyleInput";
 import { LoginBtn } from "../Style/StyleBtn";
 import { isLoginModal } from "../atoms/IsModal";
@@ -45,7 +45,7 @@ const LoginForm = styled.form`
 export function Login({ signBtn, setSignBtn }: SignInObj) {
   const [isModal, setIsModal] = useRecoilState<boolean>(isLoginModal);
   const [isLogin, setIsLogin] = useRecoilState<boolean>(isLoginAtom);
-  const [_, setTime] = useRecoilState<number>(expiresTime);
+  const setTime = useSetRecoilState<number>(expiresTime);
   const [loginForm, setLoginForm] = useState<LoginObj>({
     id: "",
     password: "",
