@@ -65,7 +65,7 @@ export function Login({ signBtn, setSignBtn }: SignInObj) {
   const idRegEx = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,15}$/;
   const loginFunc = () => {
     const expiresTime = new Date();
-    if (idRegEx.test(loginForm.id)) {
+    if (!idRegEx.test(loginForm.id)) {
       alert("ID는 6 ~ 15글자 입니다.");
       return;
     }
